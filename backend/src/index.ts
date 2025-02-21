@@ -1,7 +1,20 @@
-import express from 'express';
-import { config } from 'dotenv';
 import app from './app';
+import {log} from 'console';
+import {connectDB, disconnectDB} from './db/connections';
 
-app.listen(3000, () => {
-  console.log('Server is running on PORT 3000!');
+connectDB()
+  .then(() => {
+    log('Connected to MongoDB');
+    app.listen(process.env.PORT, () => {
+      log(`Server is running on http://localhost:${process.env.PORT}`);
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+process.on('SIGINT', async () => {
+  disconnectDB();
+  log('Disconnected from MongoDB');
+  process.exit(0);
 });
