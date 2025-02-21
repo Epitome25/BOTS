@@ -1,10 +1,6 @@
 import express from 'express';
-
-const app = express();
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+import { config } from 'dotenv';
+import app from './app';
 
 app.listen(3000, () => {
   console.log('Server is running on PORT 3000!');
