@@ -1,7 +1,10 @@
 import {Request, Response} from 'express';
 import {Prescription} from '../models/prescription.model';
 
-export const createPrescription = async (req: Request, res: Response) => {
+export const createPrescription = async (
+  req: Request,
+  res: Response,
+): Promise<any> => {
   try {
     const {patientId, doctorId, medicines, notes} = req.body;
 
@@ -24,7 +27,7 @@ export const createPrescription = async (req: Request, res: Response) => {
 export const getPrescriptions = async (
   req: Request,
   res: Response,
-) : Promise<any> => {
+): Promise<any> => {
   try {
     const {userId} = req.params;
     const prescriptions = await Prescription.find({patient: userId})
