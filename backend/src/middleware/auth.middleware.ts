@@ -53,7 +53,7 @@ export const verifyDoctor = async (
       return res.status(404).json({message: 'User not found'});
     }
 
-    if (userExist.type !== 'doctor') {
+    if (userExist.type?.toLowerCase() !== 'doctor') {
       return res
         .status(403)
         .json({message: 'Access Denied. User is not a doctor.'});
