@@ -4,7 +4,8 @@ import {NextFunction, Request, Response} from 'express';
 
 const BASEURL = 'https://api.hcgateway.shuchir.dev/api/v2/login';
 
-let loginToken: string = "";
+let loginToken: string = '';
+let expiry: string = '';
 
 export const getLoginToken = async (): Promise<string | null> => {
   try {
@@ -14,6 +15,7 @@ export const getLoginToken = async (): Promise<string | null> => {
     });
 
     loginToken = response.data.token;
+    expiry = response.data.expiry;
     console.log('Login Token:', loginToken);
     return loginToken;
   } catch (error: any) {
@@ -62,10 +64,30 @@ export const getHealthMetric = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-    // First, get the login token
     const healthMetric = req.path;
     log(healthMetric);
-    const token = await getLoginToken();
+
+    let token: string | null = null;
+
+    if (loginToken && expiry !== '') {
+      const expiryDate = new Date(expiry);
+      const currentDate = new Date();
+
+      log('Expiry Date:', expiryDate);
+      log('Current Date:', currentDate);
+
+      if (expiryDate > currentDate) {
+        token = loginToken;
+        log('Using existing valid token');
+      } else {
+        log('Token expired, fetching new token');
+        token = await getLoginToken();
+      }
+    } else {
+      log('No existing token or token expired, fetching new token');
+      token = await getLoginToken();
+    }
+
     if (!token) {
       return res.status(401).json({error: 'Authentication failed'});
     }
