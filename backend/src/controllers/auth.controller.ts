@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {User} from '../models/user.model';
-import {generateToken} from '../utils/tokenManager';
+import {generateToken} from '../utils/tokenManager.utils';
 import {Doctor} from '../models/doctor.model';
 import {Patient} from '../models/patient.model';
 

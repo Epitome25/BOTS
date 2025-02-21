@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getHealthMetric, } from '../utils/healthdataextractionapi';
+import { getHealthMetric, } from '../utils/healthdataextractionapi.utils';
 
 const userRouter = Router();
 
