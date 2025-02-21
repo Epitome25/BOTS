@@ -1,0 +1,4 @@
+.gitgnore
+/backend/node_modules
+/backend/build
+.env
