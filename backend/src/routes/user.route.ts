@@ -18,6 +18,7 @@ import {
 } from '../controllers/medication.controller';
 import {loginValidator} from '../utils/loginvalidator.utils';
 import {authoriseToken, verifyDoctor} from '../middleware/auth.middleware';
+import {getSummary} from '../controllers/ai.controller';
 
 const userRouter = Router();
 
@@ -62,6 +63,8 @@ userRouter.post(
   verifyDoctor,
   undoDiscardMedication,
 );
+
+userRouter.get('/summary', getSummary);
 
 userRouter.all('/*', getHealthMetric);
 
