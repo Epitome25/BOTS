@@ -71,7 +71,7 @@ export const getSummary = async (req: Request, res: Response): Promise<any> => {
         "prescriptions": [
           {
             "doctor": "Dr. Sharma",
-            "patient": "John Doe",
+            "patient": "Khandakar",
             "medicines": ["Metformin", "Glimepiride"],
             "date": "2025-02-22"
           }
